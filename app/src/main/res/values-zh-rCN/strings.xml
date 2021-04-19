@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="action_search">输入关键字</string>
+    <string name="profile">个人</string>
+    <string name="nav_home">主页</string>
+    <string name="nav_social">社交</string>
+    <string name="nav_gameTools">工具</string>
+    <string name="nav_profile">个人</string>
+    <string name="app_name">桌游驿站</string>
+    <string name="buy_button">购买</string>
+    <string name="seller">卖家</string>
+    <string name="condition">物品状况</string>
+    <string name="brand">品牌</string>
+    <string name="price">价格</string>
+    <string name="jump_page">跳转</string>
+    <string name="navigate_next">下一页</string>
+    <string name="navigate_prev">上一页</string>
+    <string name="search_hint">在此搜索</string>
+    <string name="api_error"> 抱歉，请再次确认您的关键词与网络并重试。</string>
+</resources>

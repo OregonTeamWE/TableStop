@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">TableStop</string>
+    <string name="action_search">Enter keywords</string>
+    <string name="profile">Profile</string>
+    <string name="nav_home">Home</string>
+    <string name="nav_social">Social</string>
+    <string name="nav_profile">Profile</string>
+    <string name="nav_gameTools">Game Tools</string>
+    <string name="buy_button">Buy</string>
+    <string name="condition">Condition:</string>
+    <string name="seller">Seller:</string>
+    <string name="brand">Brand:</string>
+    <string name="price">Price</string>
+    <string name="jump_page">Go</string>
+    <string name="navigate_next">Next</string>
+    <string name="navigate_prev">Previous</string>
+    <string name="search_hint">Search Here</string>
+    <string name="api_error">Sorry, please check your keywords or network again.</string>
+
+</resources>

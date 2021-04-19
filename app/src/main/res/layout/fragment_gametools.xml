@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/root_page"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="120dp"
+        android:layout_marginTop="10dp"
+        android:text="Dice Roller"
+        android:textSize="30dp" />
+
+    <FrameLayout
+        android:id="@+id/roll_warning"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:visibility="invisible">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_baseline_warning_24"
+            app:tint="#DCE81414" />
+
+        <TextView
+            android:id="@+id/roll_warning_text"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="24dp"
+            android:text="Please select one type of dice!!!"
+            android:textColor="#DCE81414"
+            android:textSize="20dp" />
+    </FrameLayout>
+
+    <!--    <View-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="2dp"-->
+    <!--        android:layout_marginTop="15dp"-->
+    <!--        android:background="@android:color/darker_gray" />-->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="142dp"
+        android:layout_marginTop="0dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/d4"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:backgroundTint="@drawable/button_color"
+            android:drawableTop="@drawable/dice4"
+            android:text="D4"
+            android:textSize="25dp" />
+
+        <Button
+            android:id="@+id/d6"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="15dp"
+            android:backgroundTint="@drawable/button_color"
+            android:drawableTop="@drawable/dice6"
+            android:text="D6"
+            android:textSize="25dp" />
+
+        <Button
+            android:id="@+id/d8"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="15dp"
+            android:backgroundTint="@drawable/button_color"
+            android:drawableTop="@drawable/dice8"
+            android:text="D8"
+            android:textSize="25dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="142dp"
+        android:layout_marginTop="0dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/d10"
+            android:layout_width="107dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:backgroundTint="@drawable/button_color"
+            android:drawableTop="@drawable/dice_10"
+            android:text="D10"
+            android:textSize="25dp" />
+
+        <Button
+            android:id="@+id/d12"
+            android:layout_width="113dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="15dp"
+            android:backgroundTint="@drawable/button_color"
+            android:drawableTop="@drawable/dive12"
+            android:text="D12"
+            android:textSize="25dp" />
+
+        <Button
+            android:id="@+id/d20"
+            android:layout_width="115dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="15dp"
+            android:backgroundTint="@drawable/button_color"
+            android:drawableTop="@drawable/dice20"
+            android:text="D20"
+            android:textSize="25dp" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_roll"
+        android:layout_width="316dp"
+        android:layout_height="wrap_content"
+
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/round_corner"
+        android:text="Roll!"
+        android:textColor="#C70CF1"
+        android:textSize="20dp" />
+
+    <Button
+        android:id="@+id/btn_shop"
+        android:layout_width="316dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/round_corner"
+        android:text="Shop Dice"
+        android:textColor="#C70CF1"
+        android:textSize="20dp" />
+
+
+    <!--    <TextView-->
+    <!--        android:id="@+id/roll_result"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:text="1"-->
+    <!--        android:textSize="100dp"-->
+    <!--        />-->
+
+</LinearLayout>
+
