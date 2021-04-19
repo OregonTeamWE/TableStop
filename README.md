@@ -1,4 +1,4 @@
-# Team-eBay-Capstone-Project
+# Oregon State University Capstone Project
 
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-MaterialSearchBar-orange.svg?style=flat)](http://android-arsenal.com/details/1/4158)
 [![](https://jitpack.io/v/mancj/MaterialSearchBar.svg)](https://jitpack.io/#mancj/MaterialSearchBar)
