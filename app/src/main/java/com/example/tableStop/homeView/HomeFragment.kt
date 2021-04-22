@@ -26,7 +26,6 @@ import com.example.tableStop.R
 import com.example.tableStop.TableStopApp
 import com.example.tableStop.dataClass.ProductInfo
 import com.example.tableStop.searchView.ShopMoreFragment
-import com.example.tableStop.utils.SearchUtils
 import com.example.tableStop.viewModel.ProductViewModel
 import com.mancj.materialsearchbar.MaterialSearchBar
 import kotlinx.android.synthetic.main.fragment_shop.*
@@ -46,15 +45,16 @@ class HomeFragment : Fragment(), MaterialSearchBar.OnSearchActionListener {
         lateinit var merchandiseInfo: String
 
         private const val REQUEST_CODE_STT = 1
+
+        var dndData = ArrayList<ProductInfo>()
+        var rpgData = ArrayList<ProductInfo>()
+        var diceData = ArrayList<ProductInfo>()
+        var bookData = ArrayList<ProductInfo>()
+        var merchandiseData = ArrayList<ProductInfo>()
     }
 
     private val mViewModel: ProductViewModel by activityViewModels()
 
-    var dndData = ArrayList<ProductInfo>()
-    var rpgData = ArrayList<ProductInfo>()
-    var diceData = ArrayList<ProductInfo>()
-    var bookData = ArrayList<ProductInfo>()
-    var merchandiseData = ArrayList<ProductInfo>()
 
     lateinit var dndRecyclerAdapter: HomeRecyclerAdapter
     lateinit var rpgRecyclerAdapter: HomeRecyclerAdapter
@@ -71,7 +71,7 @@ class HomeFragment : Fragment(), MaterialSearchBar.OnSearchActionListener {
         val dicePB = getView()?.findViewById(R.id.dice_loading_indicator) as ProgressBar
         val bookPB = getView()?.findViewById(R.id.book_loading_indicator) as ProgressBar
         val merchandisePB =
-            getView()?.findViewById(R.id.merchandise_loading_indicator) as ProgressBar
+                getView()?.findViewById(R.id.merchandise_loading_indicator) as ProgressBar
 
         val btn1 = getView()?.findViewById(R.id.load_more_button) as ImageButton
         val btn2 = getView()?.findViewById(R.id.load_more_rpg) as ImageButton
@@ -87,41 +87,41 @@ class HomeFragment : Fragment(), MaterialSearchBar.OnSearchActionListener {
         }
         //view model using cached data
         mViewModel.getSearchResults()?.observe(viewLifecycleOwner,
-            Observer<List<ProductInfo>> { productInfos: List<ProductInfo>? ->
-                dndRecyclerAdapter.setInfo(productInfos as ArrayList<ProductInfo>)
-            })
+                Observer<List<ProductInfo>> { productInfos: List<ProductInfo>? ->
+                    dndRecyclerAdapter.setInfo(productInfos as ArrayList<ProductInfo>)
+                })
 
         shop_dnd_recycler_view.apply {
             shop_dnd_recycler_view.layoutManager =
-                LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
+                    LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
             dndRecyclerAdapter = HomeRecyclerAdapter()
             shop_dnd_recycler_view.adapter = dndRecyclerAdapter
         }
 
         shop_rpg_recycler_view.apply {
             shop_rpg_recycler_view.layoutManager =
-                LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
+                    LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
             rpgRecyclerAdapter = HomeRecyclerAdapter()
             shop_rpg_recycler_view.adapter = rpgRecyclerAdapter
         }
 
         shop_dice_recycler_view.apply {
             shop_dice_recycler_view.layoutManager =
-                LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
+                    LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
             diceRecyclerAdapter = HomeRecyclerAdapter()
             shop_dice_recycler_view.adapter = diceRecyclerAdapter
         }
 
         shop_book_recycler_view.apply {
             shop_book_recycler_view.layoutManager =
-                LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
+                    LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
             bookRecyclerAdapter = HomeRecyclerAdapter()
             shop_book_recycler_view.adapter = bookRecyclerAdapter
         }
 
         shop_merchandise_recycler_view.apply {
             shop_merchandise_recycler_view.layoutManager =
-                LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
+                    LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
             merchandiseRecyclerAdapter = HomeRecyclerAdapter()
             shop_merchandise_recycler_view.adapter = merchandiseRecyclerAdapter
         }
@@ -140,72 +140,45 @@ class HomeFragment : Fragment(), MaterialSearchBar.OnSearchActionListener {
 
         viewLifecycleOwner.lifecycleScope.launch {
             //Check if the network is connected
-            val cm =
-                requireContext().getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-            val activeNetwork: NetworkInfo? = cm.activeNetworkInfo
-            var isConnected: Boolean = activeNetwork?.isConnectedOrConnecting == true
-            isConnected = cm.isDefaultNetworkActive
 
-            if (isConnected) {
+            if (!TableStopApp.accessToken.isNullOrEmpty()) {
                 val homeDataFetch = HomeDataFetch()
                 withContext(Dispatchers.IO) { homeDataFetch.fetchData() }
 
                 try {
-                    while (dndData.isEmpty()) dndData =
-                        SearchUtils.parseSearchResultJSON(dndInfo).itemSummaries
-                    while (rpgData.isEmpty()) rpgData =
-                        SearchUtils.parseSearchResultJSON(rpgInfo).itemSummaries
-                    while (diceData.isEmpty()) diceData =
-                        SearchUtils.parseSearchResultJSON(diceInfo).itemSummaries
-                    while (bookData.isEmpty()) bookData =
-                        SearchUtils.parseSearchResultJSON(bookInfo).itemSummaries
-                    while (merchandiseData.isEmpty()) merchandiseData =
-                        SearchUtils.parseSearchResultJSON(merchandiseInfo).itemSummaries
+                    homeDataFetch.checkData()
                 } catch (e: NullPointerException) {
                     println(e)
                 } finally {
-                    if (SearchUtils.parseSearchResultJSON(dndInfo) != null &&
-                        SearchUtils.parseSearchResultJSON(rpgInfo) != null &&
-                        SearchUtils.parseSearchResultJSON(diceInfo) != null &&
-                        SearchUtils.parseSearchResultJSON(bookInfo) != null &&
-                        SearchUtils.parseSearchResultJSON(merchandiseInfo) != null
-                    ) {
-                        SearchUtils.parseSearchResultJSON(dndInfo)
-                        SearchUtils.parseSearchResultJSON(rpgInfo)
-                        SearchUtils.parseSearchResultJSON(diceInfo)
-                        SearchUtils.parseSearchResultJSON(bookInfo)
-                        SearchUtils.parseSearchResultJSON(merchandiseInfo)
-                    } else {
-                        home_data.visibility = View.GONE
-                        error_message_home.visibility = View.VISIBLE
-                    }
+                    homeDataFetch.setData()
                 }
-                dndRecyclerAdapter.setInfo(dndData)
-                dndPB.visibility = View.GONE
-
-                rpgRecyclerAdapter.setInfo(rpgData)
-                rpgPB.visibility = View.GONE
-
-                diceRecyclerAdapter.setInfo(diceData)
-                dicePB.visibility = View.GONE
-
-                bookRecyclerAdapter.setInfo(bookData)
-                bookPB.visibility = View.GONE
-
-                merchandiseRecyclerAdapter.setInfo(merchandiseData)
-                merchandisePB.visibility = View.GONE
-
             } else {
                 home_data.visibility = View.GONE
                 error_message_home.visibility = View.VISIBLE
             }
+
+            dndRecyclerAdapter.setInfo(dndData)
+            dndPB.visibility = View.GONE
+
+            rpgRecyclerAdapter.setInfo(rpgData)
+            rpgPB.visibility = View.GONE
+
+            diceRecyclerAdapter.setInfo(diceData)
+            dicePB.visibility = View.GONE
+
+            bookRecyclerAdapter.setInfo(bookData)
+            bookPB.visibility = View.GONE
+
+            merchandiseRecyclerAdapter.setInfo(merchandiseData)
+            merchandisePB.visibility = View.GONE
+
         }
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.fragment_shop, container, false)
     }
@@ -232,8 +205,8 @@ class HomeFragment : Fragment(), MaterialSearchBar.OnSearchActionListener {
         val sttIntent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
         // Language model defines the purpose, there are special models for other use cases, like search.
         sttIntent.putExtra(
-            RecognizerIntent.EXTRA_LANGUAGE_MODEL,
-            RecognizerIntent.LANGUAGE_MODEL_FREE_FORM
+                RecognizerIntent.EXTRA_LANGUAGE_MODEL,
+                RecognizerIntent.LANGUAGE_MODEL_FREE_FORM
         )
         // Adding an extra language, you can use any language from the Locale class.
         sttIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault())

@@ -19,7 +19,7 @@ class HomeDataFetch {
             HomeFragment.diceInfo = NetworkUtils.doHttpGet(diceLink, TableStopApp.accessToken)
             HomeFragment.bookInfo = NetworkUtils.doHttpGet(miniatureLink, TableStopApp.accessToken)
             HomeFragment.merchandiseInfo =
-                NetworkUtils.doHttpGet(merchandiseLink, TableStopApp.accessToken)
+                    NetworkUtils.doHttpGet(merchandiseLink, TableStopApp.accessToken)
         } catch (e: NullPointerException) {
             println(e)
         } finally {
@@ -28,29 +28,57 @@ class HomeDataFetch {
             HomeFragment.diceInfo = NetworkUtils.doHttpGet(diceLink, TableStopApp.accessToken)
             HomeFragment.bookInfo = NetworkUtils.doHttpGet(miniatureLink, TableStopApp.accessToken)
             HomeFragment.merchandiseInfo =
-                NetworkUtils.doHttpGet(merchandiseLink, TableStopApp.accessToken)
+                    NetworkUtils.doHttpGet(merchandiseLink, TableStopApp.accessToken)
+        }
+    }
+
+    fun checkData() {
+        while (HomeFragment.dndData.isEmpty()) HomeFragment.dndData =
+                SearchUtils.parseSearchResultJSON(HomeFragment.dndInfo).itemSummaries
+        while (HomeFragment.rpgData.isEmpty()) HomeFragment.rpgData =
+                SearchUtils.parseSearchResultJSON(HomeFragment.rpgInfo).itemSummaries
+        while (HomeFragment.diceData.isEmpty()) HomeFragment.diceData =
+                SearchUtils.parseSearchResultJSON(HomeFragment.diceInfo).itemSummaries
+        while (HomeFragment.bookData.isEmpty()) HomeFragment.bookData =
+                SearchUtils.parseSearchResultJSON(HomeFragment.bookInfo).itemSummaries
+        while (HomeFragment.merchandiseData.isEmpty()) HomeFragment.merchandiseData =
+                SearchUtils.parseSearchResultJSON(HomeFragment.merchandiseInfo).itemSummaries
+    }
+
+    fun setData() {
+        if (SearchUtils.parseSearchResultJSON(HomeFragment.dndInfo) != null &&
+                SearchUtils.parseSearchResultJSON(HomeFragment.rpgInfo) != null &&
+                SearchUtils.parseSearchResultJSON(HomeFragment.diceInfo) != null &&
+                SearchUtils.parseSearchResultJSON(HomeFragment.bookInfo) != null &&
+                SearchUtils.parseSearchResultJSON(HomeFragment.merchandiseInfo) != null
+        ) {
+            SearchUtils.parseSearchResultJSON(HomeFragment.dndInfo)
+            SearchUtils.parseSearchResultJSON(HomeFragment.rpgInfo)
+            SearchUtils.parseSearchResultJSON(HomeFragment.diceInfo)
+            SearchUtils.parseSearchResultJSON(HomeFragment.bookInfo)
+            SearchUtils.parseSearchResultJSON(HomeFragment.merchandiseInfo)
         }
     }
 
     private fun buildHomeSearchURL(limit: Int, offset: Int, category: String?): String {
         return Uri.parse(SearchUtils.EBAY_SEARCH_URL).buildUpon()
-            .appendQueryParameter("category_ids", category.toString())
-            .appendQueryParameter("limit", limit.toString())
-            .appendQueryParameter("offset", offset.toString())
-            .toString()
+                .appendQueryParameter("category_ids", category.toString())
+                .appendQueryParameter("limit", limit.toString())
+                .appendQueryParameter("offset", offset.toString())
+                .toString()
     }
 
     private fun buildOtherSearchURL(
-        name: String?,
-        limit: Int,
-        offset: Int,
-        category: String?
+            name: String?,
+            limit: Int,
+            offset: Int,
+            category: String?
     ): String {
         return Uri.parse(SearchUtils.EBAY_SEARCH_URL).buildUpon()
-            .appendQueryParameter("q", name)
-            .appendQueryParameter("category_ids", category.toString())
-            .appendQueryParameter("limit", limit.toString())
-            .appendQueryParameter("offset", offset.toString())
-            .toString()
+                .appendQueryParameter("q", name)
+                .appendQueryParameter("category_ids", category.toString())
+                .appendQueryParameter("limit", limit.toString())
+                .appendQueryParameter("offset", offset.toString())
+                .toString()
     }
 }
