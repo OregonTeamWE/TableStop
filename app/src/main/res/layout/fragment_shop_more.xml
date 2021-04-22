@@ -107,27 +107,33 @@
         android:layout_height="40dp"
         android:layout_alignParentBottom="true"
         android:background="@android:color/white"
+        android:gravity="center_horizontal"
         android:weightSum="100">
 
         <Button
             android:id="@+id/prev_button"
+            style="?attr/materialButtonOutlinedStyle"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:layout_marginEnd="20dp"
             android:layout_weight="25"
-            android:text="@string/navigate_prev" />
+            android:text="@string/navigate_prev"
+            android:textSize="20sp" />
 
         <EditText
             android:id="@+id/search_page"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="20" />
+            android:layout_weight="20"
+            android:visibility="gone" />
 
         <Button
             android:id="@+id/jump_btn"
             android:layout_width="60dp"
             android:layout_height="match_parent"
             android:layout_weight="20"
-            android:text="@string/jump_page" />
+            android:text="@string/jump_page"
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/show_page"
@@ -138,14 +144,18 @@
             android:autoSizeMinTextSize="12sp"
             android:gravity="center_vertical"
             android:text="Page"
+            android:visibility="gone"
             app:autoSizeTextType="uniform" />
 
         <Button
+            style="?attr/materialButtonOutlinedStyle"
             android:id="@+id/next_button"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:layout_marginStart="20dp"
             android:layout_weight="25"
-            android:text="@string/navigate_next" />
+            android:text="@string/navigate_next"
+            android:textSize="20sp" />
     </LinearLayout>
 
 </RelativeLayout>

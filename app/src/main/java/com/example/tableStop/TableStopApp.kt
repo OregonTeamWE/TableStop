@@ -1,6 +1,7 @@
 package com.example.tableStop
 
 import android.app.Application
+import android.media.session.MediaSession
 import android.util.Log
 import com.example.tableStop.dataClass.Credentials
 import com.example.tableStop.dataClass.TokenInfo
@@ -22,6 +23,7 @@ class TableStopApp : Application() {
         var tokenJson: String = ""
         lateinit var ClientID: String
         lateinit var ClientSecret: String
+        var tokenInfo: TokenInfo? = null
     }
 
     override fun onCreate() {
@@ -36,21 +38,34 @@ class TableStopApp : Application() {
 
         Log.d("App Key", ClientID)
 
-        suspend fun getTokenSuspend(): String? {
-            val token = accessToken
-            if(!token.isNullOrEmpty()) return token
 
-            val newToken = withContext(Dispatchers.IO){
-                try {
-                    tokenJson = NetworkUtils.doHttpPost(TokenUtils.buildTokenURL())
-                } catch (e: Exception){
-                    e.printStackTrace()
-                }
-                tokenJson
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                tokenJson = NetworkUtils.doHttpPost(TokenUtils.buildTokenURL())
+                tokenInfo = TokenUtils.parseTokenJSON(tokenJson)
+            } catch (e: Exception) {
+                e.printStackTrace()
+            } finally {
+                accessToken = tokenInfo?.access_token
             }
-            accessToken = newToken
-            return newToken
         }
+
+
+
+//        suspend fun getTokenSuspend(): String? {
+//            val token = accessToken
+//            if (!token.isNullOrEmpty()) return token
+//            val newToken = withContext(Dispatchers.IO) {
+//                var tokenJson: String? = null
+//                try {
+//                    tokenJson = NetworkUtils.doHttpPost(TokenUtils.buildTokenURL())
+//                } catch (e: Exception) {
+//                    e.printStackTrace()
+//                }
+//                tokenJson
+//            }
+//            return newToken
+//        }
     }
 
 }

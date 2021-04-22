@@ -71,7 +71,7 @@ class HomeFragment : Fragment(), MaterialSearchBar.OnSearchActionListener {
         val dicePB = getView()?.findViewById(R.id.dice_loading_indicator) as ProgressBar
         val bookPB = getView()?.findViewById(R.id.book_loading_indicator) as ProgressBar
         val merchandisePB =
-                getView()?.findViewById(R.id.merchandise_loading_indicator) as ProgressBar
+            getView()?.findViewById(R.id.merchandise_loading_indicator) as ProgressBar
 
         val btn1 = getView()?.findViewById(R.id.load_more_button) as ImageButton
         val btn2 = getView()?.findViewById(R.id.load_more_rpg) as ImageButton
@@ -87,41 +87,41 @@ class HomeFragment : Fragment(), MaterialSearchBar.OnSearchActionListener {
         }
         //view model using cached data
         mViewModel.getSearchResults()?.observe(viewLifecycleOwner,
-                Observer<List<ProductInfo>> { productInfos: List<ProductInfo>? ->
-                    dndRecyclerAdapter.setInfo(productInfos as ArrayList<ProductInfo>)
-                })
+            Observer<List<ProductInfo>> { productInfos: List<ProductInfo>? ->
+                dndRecyclerAdapter.setInfo(productInfos as ArrayList<ProductInfo>)
+            })
 
         shop_dnd_recycler_view.apply {
             shop_dnd_recycler_view.layoutManager =
-                    LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
+                LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
             dndRecyclerAdapter = HomeRecyclerAdapter()
             shop_dnd_recycler_view.adapter = dndRecyclerAdapter
         }
 
         shop_rpg_recycler_view.apply {
             shop_rpg_recycler_view.layoutManager =
-                    LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
+                LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
             rpgRecyclerAdapter = HomeRecyclerAdapter()
             shop_rpg_recycler_view.adapter = rpgRecyclerAdapter
         }
 
         shop_dice_recycler_view.apply {
             shop_dice_recycler_view.layoutManager =
-                    LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
+                LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
             diceRecyclerAdapter = HomeRecyclerAdapter()
             shop_dice_recycler_view.adapter = diceRecyclerAdapter
         }
 
         shop_book_recycler_view.apply {
             shop_book_recycler_view.layoutManager =
-                    LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
+                LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
             bookRecyclerAdapter = HomeRecyclerAdapter()
             shop_book_recycler_view.adapter = bookRecyclerAdapter
         }
 
         shop_merchandise_recycler_view.apply {
             shop_merchandise_recycler_view.layoutManager =
-                    LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
+                LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
             merchandiseRecyclerAdapter = HomeRecyclerAdapter()
             shop_merchandise_recycler_view.adapter = merchandiseRecyclerAdapter
         }
@@ -140,8 +140,9 @@ class HomeFragment : Fragment(), MaterialSearchBar.OnSearchActionListener {
 
         viewLifecycleOwner.lifecycleScope.launch {
             //Check if the network is connected
+            Log.d("HomeFragment", TableStopApp.accessToken.toString())
 
-            if (!TableStopApp.accessToken.isNullOrEmpty()) {
+            if (TableStopApp.accessToken != null) {
                 val homeDataFetch = HomeDataFetch()
                 withContext(Dispatchers.IO) { homeDataFetch.fetchData() }
 
@@ -176,9 +177,9 @@ class HomeFragment : Fragment(), MaterialSearchBar.OnSearchActionListener {
     }
 
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.fragment_shop, container, false)
     }
@@ -205,8 +206,8 @@ class HomeFragment : Fragment(), MaterialSearchBar.OnSearchActionListener {
         val sttIntent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
         // Language model defines the purpose, there are special models for other use cases, like search.
         sttIntent.putExtra(
-                RecognizerIntent.EXTRA_LANGUAGE_MODEL,
-                RecognizerIntent.LANGUAGE_MODEL_FREE_FORM
+            RecognizerIntent.EXTRA_LANGUAGE_MODEL,
+            RecognizerIntent.LANGUAGE_MODEL_FREE_FORM
         )
         // Adding an extra language, you can use any language from the Locale class.
         sttIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault())
