@@ -24,7 +24,7 @@ A list or paragraph outlining the engineering requirements
 - More requirements coming with the discussion with the partner
 
 A list or paragraph outlining the constraints that might affect design
-- This is an Android application which means we are targeting the iOS users
+- This is an Android application which means we are not targeting the iOS users
 - eBay is not quite a global e-commerce service provider, and the main target population is the users that are residents in United States
 - Working in a 9-month time range could make the final result a little rough for a big company like eBay.
 - Communication between group members and eBay engineers could be difficult since we are limited to online conferences.
