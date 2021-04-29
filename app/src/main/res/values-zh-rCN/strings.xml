@@ -17,4 +17,6 @@
     <string name="navigate_prev">上一页</string>
     <string name="search_hint">在此搜索</string>
     <string name="api_error"> 抱歉，请再次确认您的关键词与网络并重试。</string>
+    <string name="roll">投掷</string>
+    <string name="shop_dice">购买骰子</string>
 </resources>

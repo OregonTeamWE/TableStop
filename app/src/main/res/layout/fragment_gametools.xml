@@ -110,11 +110,11 @@
             android:id="@+id/d20"
             android:layout_width="115dp"
             android:layout_height="match_parent"
-            android:layout_marginLeft="15dp"
+            android:layout_marginStart="15dp"
             android:backgroundTint="@drawable/button_color"
             android:drawableTop="@drawable/dice20"
             android:text="D20"
-            android:textSize="25dp" />
+            android:textSize="25sp" />
 
     </LinearLayout>
 
@@ -124,25 +124,26 @@
         android:orientation="vertical">
         <Button
             android:id="@+id/btn_roll"
-            android:layout_width="316dp"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_gravity="center_horizontal"
             android:background="@drawable/round_corner"
-            android:text="Roll!"
+            android:text="@string/roll"
             android:textColor="#000000"
-            android:textSize="20dp" />
+            android:textSize="20sp" />
 
         <Button
             android:id="@+id/btn_shop"
-            android:layout_width="316dp"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_gravity="center_horizontal"
             android:background="@drawable/round_corner"
-            android:text="Shop Dice"
+            android:text="@string/shop_dice"
             android:textColor="#000000"
-            android:textSize="20dp" />
+            android:textSize="20sp" />
+
     </LinearLayout>
 
 
