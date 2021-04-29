@@ -65,17 +65,17 @@ class DetailFragment : Fragment() {
             brand.text = itemData?.brand
             seller.text = itemData?.seller
 
-            Glide.with(view.context)
-                .load(productInfo?.image)
-                .into(image)
-
+//            Glide.with(view.context)
+//                .load(productInfo?.image)
+//                .into(image)
+            viewPager.adapter = ViewPagerAdapter(context, itemData.images)
 
             button_buy.setOnClickListener {
                 // val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse("http://www.google.com"))
                 // startActivity(browserIntent)
                 // val url = "http://www.google.com"
                 // var url = "https://www.seeedstudio.com/LambdaChip-Alonzo-Standard-Version-p-4854.html"
-                var url = productInfo?.itemWebUrl
+                var url = itemData?.url
 
                 Log.d("Url", "Clicking ${productInfo?.image}")
                 Log.d("Url", "Clicking $url")
