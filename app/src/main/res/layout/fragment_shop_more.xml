@@ -104,24 +104,25 @@
     <LinearLayout
         android:id="@+id/pagination"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:background="@android:color/white"
         android:gravity="center_horizontal"
         android:weightSum="100">
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/prev_button"
-            app:cornerRadius="8dp"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginEnd="20dp"
-            android:layout_weight="25"
-            android:text="@string/navigate_prev"
-            android:backgroundTint="@color/red"
-            android:textColor="@color/white"
-            android:textSize="20sp" />
 
+        <Button
+            android:id="@+id/prev_button"
+            android:layout_width="80dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="5dp"
+            android:layout_weight="25"
+            android:background="@drawable/round_corner"
+            android:text="@string/navigate_prev"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
 
         <EditText
             android:id="@+id/search_page"
@@ -151,15 +152,16 @@
             app:autoSizeTextType="uniform" />
 
         <Button
-            style="?attr/materialButtonOutlinedStyle"
             android:id="@+id/next_button"
-            android:layout_width="wrap_content"
+            android:layout_width="80dp"
             android:layout_height="match_parent"
             android:layout_marginStart="20dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
             android:layout_weight="25"
+            android:background="@drawable/round_corner"
             android:text="@string/navigate_next"
-            android:backgroundTint="@color/red"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textSize="20sp" />
     </LinearLayout>
 

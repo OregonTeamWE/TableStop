@@ -16,5 +16,7 @@
     <string name="navigate_prev">Previous</string>
     <string name="search_hint">Search Here</string>
     <string name="api_error">Sorry, please check your keywords or network again.</string>
+    <string name="roll">Roll!</string>
+    <string name="shop_dice">Shop Dice</string>
 
 </resources>
