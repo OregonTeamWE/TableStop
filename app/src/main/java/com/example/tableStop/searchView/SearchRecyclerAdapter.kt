@@ -13,7 +13,7 @@ import com.example.tableStop.R
 import com.example.tableStop.dataClass.ProductInfo
 import com.example.tableStop.detailView.DetailFragment
 
-class HomeRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class SearchRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var info: ArrayList<ProductInfo> = ArrayList()
 
@@ -27,7 +27,7 @@ class HomeRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         // Create a new view, which defines the UI of the list item
         return ShopViewHolder(
             LayoutInflater.from(parent.context)
-                .inflate(R.layout.layout_shop_list_item, parent, false)
+                .inflate(R.layout.search_layout, parent, false)
         )
     }
 
@@ -49,7 +49,7 @@ class HomeRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         itemView: View
     ) : RecyclerView.ViewHolder(itemView) {
 
-        private val cardView: CardView = itemView.findViewById(R.id.recyclerview_item)
+        private val cardView: CardView = itemView.findViewById(R.id.search_recycler)
         private val textDescription: TextView = itemView.findViewById(R.id.shop_item_description)
         private val textPrice: TextView = itemView.findViewById(R.id.shop_item_price)
         private val itemImage: ImageButton = itemView.findViewById(R.id.shop_item_image)

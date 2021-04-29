@@ -13,11 +13,13 @@ import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.tableStop.R
 import com.example.tableStop.TableStopApp
 import com.example.tableStop.dataClass.SearchResult
 import com.example.tableStop.homeView.HomeFragment
 import com.example.tableStop.homeView.HomeRecyclerAdapter
+import com.example.tableStop.homeView.SearchRecyclerAdapter
 import com.example.tableStop.utils.NetworkUtils
 import com.example.tableStop.utils.SearchUtils
 import com.mancj.materialsearchbar.MaterialSearchBar
@@ -28,7 +30,7 @@ import kotlinx.coroutines.withContext
 import java.util.*
 
 class ShopMoreFragment : Fragment(), MaterialSearchBar.OnSearchActionListener {
-    lateinit var searchAdapter: HomeRecyclerAdapter
+    lateinit var searchAdapter: SearchRecyclerAdapter
     lateinit var searchResult: String
 
     var searchData = SearchResult()
@@ -43,12 +45,11 @@ class ShopMoreFragment : Fragment(), MaterialSearchBar.OnSearchActionListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val btn = getView()?.findViewById<View>(R.id.fold) as ImageButton
         val parameter = arguments?.getString("parameter")
 
         val searchPB = getView()?.findViewById(R.id.search_loading_indicator) as ProgressBar
         val searchPage = getView()?.findViewById(R.id.search_page) as EditText
-        val showPage = getView()?.findViewById(R.id.show_page) as TextView
+//        val showPage = getView()?.findViewById(R.id.show_page) as TextView
         val jumpButton = getView()?.findViewById(R.id.jump_btn) as Button
         val prevButton = getView()?.findViewById(R.id.prev_button) as Button
         val nextButton = getView()?.findViewById(R.id.next_button) as Button
@@ -62,31 +63,21 @@ class ShopMoreFragment : Fragment(), MaterialSearchBar.OnSearchActionListener {
         println("Hey there! $parameter")
         link = SearchUtils.buildSearchURL(parameter, 12, (viewPageNum - 1) * 12)
 
-        btn.setOnClickListener {
-            var shopMoreFragment = HomeFragment()
-            var fragmentManager = requireActivity().supportFragmentManager
-            var fragmentTransaction = fragmentManager.beginTransaction()
-            fragmentTransaction.replace(R.id.fragment_container, shopMoreFragment)
-            fragmentTransaction.addToBackStack(null)
-            fragmentTransaction.commit()
-        }
-
-        search_title.text = parameter
-
         search_recycler_view.apply {
             search_recycler_view.layoutManager =
-                GridLayoutManager(activity, 3)
-            searchAdapter = HomeRecyclerAdapter()
+                LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
+            searchAdapter = SearchRecyclerAdapter()
             search_recycler_view.adapter = searchAdapter
         }
 
-        resetSearch(link, searchPB, showPage)
+        resetSearch(link)
+        searchPB.visibility = View.GONE
 
         prevButton.setOnClickListener {
             if (viewPageNum > 1) {
                 --viewPageNum
                 link = SearchUtils.buildSearchURL(parameter, 12, (viewPageNum - 1) * 12)
-                resetSearch(link, searchPB, showPage)
+                resetSearch(link)
                 Log.d("Prev Button", viewPageNum.toString())
             }
         }
@@ -94,14 +85,14 @@ class ShopMoreFragment : Fragment(), MaterialSearchBar.OnSearchActionListener {
         nextButton.setOnClickListener {
             ++viewPageNum
             link = SearchUtils.buildSearchURL(parameter, 12, (viewPageNum - 1) * 12)
-            resetSearch(link, searchPB, showPage)
+            resetSearch(link)
             Log.d("Next Button", viewPageNum.toString())
         }
 
         jumpButton.setOnClickListener {
             viewPageNum = Integer.valueOf(searchPage.text.toString())
             link = SearchUtils.buildSearchURL(parameter, 12, (viewPageNum - 1) * 12)
-            resetSearch(link, searchPB, showPage)
+            resetSearch(link)
             Log.d("Jump Button", viewPageNum.toString())
         }
     }
@@ -114,7 +105,7 @@ class ShopMoreFragment : Fragment(), MaterialSearchBar.OnSearchActionListener {
         return inflater.inflate(R.layout.fragment_shop_more, container, false)
     }
 
-    private fun resetSearch(link: String, searchPB: ProgressBar, showPage: TextView) {
+    private fun resetSearch(link: String) {
         viewLifecycleOwner.lifecycleScope.launch {
             try {
                 searchResult = withContext(Dispatchers.IO) {
@@ -153,8 +144,7 @@ class ShopMoreFragment : Fragment(), MaterialSearchBar.OnSearchActionListener {
                 }
                 Log.d("ShopMoreFrag", totalContentSize.toString())
                 searchAdapter.setInfo(searchData.itemSummaries)
-                searchPB.visibility = View.GONE
-                showPage.text = "$viewPageNum/" + (totalContentSize / 12).toString()
+//                showPage.text = "$viewPageNum/" + (totalContentSize / 12).toString()
             }
         }
     }
@@ -165,6 +155,8 @@ class ShopMoreFragment : Fragment(), MaterialSearchBar.OnSearchActionListener {
 
     override fun onSearchConfirmed(text: CharSequence?) {
         //TODO
+        resetSearch(SearchUtils.buildSearchURL(text.toString(), 12, (viewPageNum - 1) * 12))
+        search_bar.setPlaceHolder(text.toString())
     }
 
     override fun onButtonClicked(buttonCode: Int) {

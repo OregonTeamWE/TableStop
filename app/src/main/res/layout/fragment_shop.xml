@@ -73,7 +73,8 @@
                     android:background="@null"
                     android:contentDescription="more"
                     android:src="@drawable/ic_more"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginStart="10dp"
+                    app:layout_constraintStart_toEndOf="@id/textView"
                     app:layout_constraintTop_toTopOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -124,7 +125,8 @@
                     android:layout_height="wrap_content"
                     android:background="@null"
                     android:src="@drawable/ic_more"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginStart="10dp"
+                    app:layout_constraintStart_toEndOf="@id/rpg"
                     app:layout_constraintTop_toTopOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -175,7 +177,8 @@
                     android:layout_height="wrap_content"
                     android:background="@null"
                     android:src="@drawable/ic_more"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginStart="10dp"
+                    app:layout_constraintStart_toEndOf="@id/dice"
                     app:layout_constraintTop_toTopOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -226,7 +229,8 @@
                     android:layout_height="wrap_content"
                     android:background="@null"
                     android:src="@drawable/ic_more"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginStart="10dp"
+                    app:layout_constraintStart_toEndOf="@id/books"
                     app:layout_constraintTop_toTopOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -277,7 +281,8 @@
                     android:layout_height="wrap_content"
                     android:background="@null"
                     android:src="@drawable/ic_more"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginStart="10dp"
+                    app:layout_constraintStart_toEndOf="@id/merchandise"
                     app:layout_constraintTop_toTopOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
