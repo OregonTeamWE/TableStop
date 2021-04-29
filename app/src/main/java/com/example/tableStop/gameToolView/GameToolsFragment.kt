@@ -143,6 +143,11 @@ class GameToolsFragment : Fragment(){
                         CreatePopupWindow(20)
                     }
                 }}
+            rollButton.setOnClickListener{
+                if (!d4.isSelected || !d6.isSelected || !d8.isSelected || !d10.isSelected || !d12.isSelected || !d20.isSelected){
+                    warnningTV.visibility = View.VISIBLE    // if no button was clicked, display error
+                }
+            }
             btn_shop.setOnClickListener{
                 val url = "https://www.ebay.com/b/Dungeons-Dragons-Accessories-Dice/44112/bn_1913850"
                 val intent = Intent(Intent.ACTION_VIEW)
