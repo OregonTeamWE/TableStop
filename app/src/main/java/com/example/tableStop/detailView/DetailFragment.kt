@@ -65,17 +65,17 @@ class DetailFragment : Fragment() {
             brand.text = itemData?.brand
             seller.text = itemData?.seller
 
-            Glide.with(view.context)
-                .load(productInfo?.image)
-                .into(image)
-
+//            Glide.with(view.context)
+//                .load(productInfo?.image)
+//                .into(image)
+            viewPager.adapter = ViewPagerAdapter(context, itemData.images)
 
             button_buy.setOnClickListener {
                 // val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse("http://www.google.com"))
                 // startActivity(browserIntent)
                 // val url = "http://www.google.com"
                 // var url = "https://www.seeedstudio.com/LambdaChip-Alonzo-Standard-Version-p-4854.html"
-                var url = productInfo?.itemWebUrl
+                val url = itemData?.url
 
                 Log.d("Url", "Clicking ${productInfo?.image}")
                 Log.d("Url", "Clicking $url")
@@ -85,7 +85,7 @@ class DetailFragment : Fragment() {
                     intent.data = Uri.parse(url)
                     ContextCompat.startActivity(it.context, intent, null)
                 } else {
-
+                    button_buy.visibility = View.GONE
                 }
             }
 
@@ -107,14 +107,14 @@ class DetailFragment : Fragment() {
                 productInfo?.let { DummyContent.isProductInCollect(it.itemId) } == true
 
             button_favorite.setOnClickListener {
-                it?.startAnimation(scaleAnimation);
+                it?.startAnimation(scaleAnimation)
 
-                // TODO: store this id
                 if ((it as ToggleButton).isChecked) {
                     productInfo?.let { it1 -> DummyContent.addProduct(it1) }
                 } else {
                     productInfo?.let { it1 -> DummyContent.removeProduct(it1.itemId) }
                 }
+                DummyContent.save(it.context)
                 // https://developer.android.com/training/data-storage/shared-preferences
                 // val sharedPref = activity?.getPreferences(Context.MODE_PRIVATE) ?: return@setOnClickListener
                 // with (sharedPref.edit()) {
@@ -145,6 +145,7 @@ class DetailFragment : Fragment() {
                     putSerializable(ARG_PARAM_ProductInfo, productInfo)
                 }
             }
+
         private const val ARG_PARAM_ProductInfo = "productInfo"
 
     }

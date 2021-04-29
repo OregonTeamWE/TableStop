@@ -1,11 +1,13 @@
 package com.example.tableStop.gameToolView
 
+import android.animation.ValueAnimator
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.transition.TransitionManager
+import android.util.Log
 import android.view.*
 import android.widget.Button
 import android.widget.LinearLayout
@@ -15,15 +17,16 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import com.example.tableStop.R
 import kotlinx.android.synthetic.main.fragment_gametools.*
+import kotlinx.android.synthetic.main.fragment_shop.*
 
 
 class GameToolsFragment : Fragment(){
     var navc: NavController?= null
   
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.fragment_gametools, container, false)
     }
@@ -46,8 +49,7 @@ class GameToolsFragment : Fragment(){
                         warnningTV.visibility = View.VISIBLE
                     }else{
                         warnningTV.visibility = View.GONE
-                        val result = rollDice(4)
-                        CreatePopupWindow(result)
+                        CreatePopupWindow(4)
                     }
 // --------------------------------------- use intent to create popup window ---------------------//
 //                val intent = Intent(this.activity, PopupWindow::class.java)
@@ -72,8 +74,8 @@ class GameToolsFragment : Fragment(){
                         warnningTV.visibility = View.VISIBLE
                     }else{
                         warnningTV.visibility = View.GONE
-                        val result = rollDice(6)
-                        CreatePopupWindow(result)
+                        //val result = rollDice(6)
+                        CreatePopupWindow(6)
                     }
                 }}
             d8.setOnClickListener{
@@ -88,8 +90,8 @@ class GameToolsFragment : Fragment(){
                         warnningTV.visibility = View.VISIBLE
                     }else {
                         warnningTV.visibility = View.GONE
-                        val result = rollDice(8)
-                        CreatePopupWindow(result)
+                        //val result = rollDice(8)
+                        CreatePopupWindow(8)
                     }
                 }}
             d10.setOnClickListener{
@@ -104,8 +106,8 @@ class GameToolsFragment : Fragment(){
                         warnningTV.visibility = View.VISIBLE
                     }else {
                         warnningTV.visibility = View.GONE
-                        val result = rollDice(10)
-                        CreatePopupWindow(result)
+                        //val result = rollDice(10)
+                        CreatePopupWindow(10)
                     }
                 } }
             d12.setOnClickListener{
@@ -120,8 +122,8 @@ class GameToolsFragment : Fragment(){
                         warnningTV.visibility = View.VISIBLE
                     }else {
                         warnningTV.visibility = View.GONE
-                        val result = rollDice(12)
-                        CreatePopupWindow(result)
+                        //val result = rollDice(12)
+                        CreatePopupWindow(12)
                     }
                 }}
             d20.setOnClickListener{
@@ -137,10 +139,15 @@ class GameToolsFragment : Fragment(){
                         warnningTV.visibility = View.VISIBLE
                     }else {
                         warnningTV.visibility = View.GONE
-                        val result = rollDice(20)
-                        CreatePopupWindow(result)
+                        //val result = rollDice(20)
+                        CreatePopupWindow(20)
                     }
                 }}
+            rollButton.setOnClickListener{
+                if (!d4.isSelected || !d6.isSelected || !d8.isSelected || !d10.isSelected || !d12.isSelected || !d20.isSelected){
+                    warnningTV.visibility = View.VISIBLE    // if no button was clicked, display error
+                }
+            }
             btn_shop.setOnClickListener{
                 val url = "https://www.ebay.com/b/Dungeons-Dragons-Accessories-Dice/44112/bn_1913850"
                 val intent = Intent(Intent.ACTION_VIEW)
@@ -180,12 +187,33 @@ class GameToolsFragment : Fragment(){
         // Toast.makeText(this, "button clicked",
         //  Toast.LENGTH_SHORT).show()
 
-//        val randomInt = (1..limit).random()
-        //val resultText: TextView = roll_result
         val randomInt = (1..limit).random()
-        //resultText.text = randomInt.toString()
+//        val resultText: TextView = roll_result
+//        resultText.text = randomInt.toString()
         return randomInt
     }
+
+//    private fun diceAnimation(limit: Int) {
+//      val resultText: TextView = roll_result
+//        val result = rollDice(limit)
+//        val animator = ValueAnimator.ofInt(1,limit, result)
+//        animator.duration = 1000
+//        animator.addUpdateListener { animation -> resultText.setText(animation.animatedValue.toString()) }
+//        animator.start()
+//    }
+
+//    fun generateNum(limit: Int){
+//        val resultText: TextView = roll_result
+//        var randomInt = (1..limit).random()
+////        var last = 0
+////        while (true){      // if got the same result, do it again
+////            if (last == randomInt)
+////            randomInt = (1..limit).random()
+////            last = randomInt
+////        }
+//        resultText.text = randomInt.toString()
+//        Log.d("test_random", "generateNum " + randomInt)
+//    }
 
     fun PopupWindow.dimBehind() {
         val container = contentView.rootView
@@ -197,16 +225,16 @@ class GameToolsFragment : Fragment(){
         wm.updateViewLayout(container, p)
     }
 
-    fun CreatePopupWindow(dice_result: Int){
+    fun CreatePopupWindow(limit: Int){
         // using activity because it is fragment class in kotlin
         val inflater:LayoutInflater = activity?.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         val view = inflater.inflate(R.layout.activity_popup_window, null)
 
         //Initialize a new instance of popup window
         val popupWindow = PopupWindow(
-            view, // Custom view to show in popup window
-            LinearLayout.LayoutParams.WRAP_CONTENT, // Width of popup window
-            LinearLayout.LayoutParams.WRAP_CONTENT // Window height
+                view, // Custom view to show in popup window
+                LinearLayout.LayoutParams.WRAP_CONTENT, // Width of popup window
+                LinearLayout.LayoutParams.WRAP_CONTENT // Window height
         )
         // Set an elevation for the popup window
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -227,7 +255,23 @@ class GameToolsFragment : Fragment(){
         // Get the widgets reference from custom view
         val resultTv = view.findViewById<TextView>(R.id.popup_window_text)
         val buttonPopup = view.findViewById<Button>(R.id.popup_window_button)
-        resultTv.text = dice_result.toString()
+
+        // to generate dice animation
+        val result = rollDice(limit)
+        val animator = ValueAnimator.ofInt(1,limit, result)
+        if(limit == 10){       // change duration for different limit
+            animator.duration = 1200
+        }
+        if(limit == 12){
+            animator.duration = 1300
+        }
+        if(limit == 20){
+            animator.duration = 1500
+        }
+        animator.duration = 1000
+        animator.addUpdateListener { animation -> resultTv.text = animation.animatedValue.toString() }
+        animator.start()
+        //resultTv.text = dice_result.toString()
         setButtonClickable(false)  // when the popup window active, set button unclickable
 
         //popupWindow.dimBehind()
@@ -239,10 +283,10 @@ class GameToolsFragment : Fragment(){
         
         TransitionManager.beginDelayedTransition(root_page)
         popupWindow.showAtLocation(
-            root_page, // Location to display popup window
-            Gravity.CENTER, // Exact position of layout to display popup
-            0, // X offset
-            0 // Y offset
+                root_page, // Location to display popup window
+                Gravity.CENTER, // Exact position of layout to display popup
+                0, // X offset
+                0 // Y offset
         )
     }
 
