@@ -40,7 +40,7 @@ class ProfileFragment : Fragment() {
                     else -> GridLayoutManager(context, columnCount)
                 }
                 // adapter = MyItemRecyclerViewAdapter(DummyContent.ITEMS)
-                adapter = ProfileRecyclerViewAdapter(DummyContent.getProducts())
+                adapter = ProfileRecyclerViewAdapter(DummyContent.getProducts(context))
             }
         }
         return view

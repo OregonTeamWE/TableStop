@@ -11,7 +11,7 @@ import com.bumptech.glide.Glide
 import com.example.tableStop.R
 import com.example.tableStop.dataClass.ProductInfo
 import com.example.tableStop.detailView.DetailFragment
-import com.example.tableStop.dummy.DummyContent.DummyItem
+import com.example.tableStop.dummy.DummyContent
 
 
 /**
