@@ -32,7 +32,7 @@ class GameToolsFragment : Fragment(){
         super.onViewCreated(view, savedInstanceState)
 
         var warnningTV = roll_warning
-        warnningTV.visibility = View.INVISIBLE; // set warning TV
+        warnningTV.visibility = View.GONE; // set warning TV
         val rollButton: Button = btn_roll
             d4.setOnClickListener{
                 d4.isSelected = !d4.isSelected
@@ -45,7 +45,7 @@ class GameToolsFragment : Fragment(){
                     if(!d4.isSelected){
                         warnningTV.visibility = View.VISIBLE
                     }else{
-                        warnningTV.visibility = View.INVISIBLE
+                        warnningTV.visibility = View.GONE
                         val result = rollDice(4)
                         CreatePopupWindow(result)
                     }
@@ -71,7 +71,7 @@ class GameToolsFragment : Fragment(){
                     if(!d6.isSelected){
                         warnningTV.visibility = View.VISIBLE
                     }else{
-                        warnningTV.visibility = View.INVISIBLE
+                        warnningTV.visibility = View.GONE
                         val result = rollDice(6)
                         CreatePopupWindow(result)
                     }
@@ -87,7 +87,7 @@ class GameToolsFragment : Fragment(){
                     if(!d8.isSelected){
                         warnningTV.visibility = View.VISIBLE
                     }else {
-                        warnningTV.visibility = View.INVISIBLE
+                        warnningTV.visibility = View.GONE
                         val result = rollDice(8)
                         CreatePopupWindow(result)
                     }
@@ -103,7 +103,7 @@ class GameToolsFragment : Fragment(){
                     if(!d10.isSelected){
                         warnningTV.visibility = View.VISIBLE
                     }else {
-                        warnningTV.visibility = View.INVISIBLE
+                        warnningTV.visibility = View.GONE
                         val result = rollDice(10)
                         CreatePopupWindow(result)
                     }
@@ -119,7 +119,7 @@ class GameToolsFragment : Fragment(){
                     if(!d12.isSelected){
                         warnningTV.visibility = View.VISIBLE
                     }else {
-                        warnningTV.visibility = View.INVISIBLE
+                        warnningTV.visibility = View.GONE
                         val result = rollDice(12)
                         CreatePopupWindow(result)
                     }
@@ -136,7 +136,7 @@ class GameToolsFragment : Fragment(){
                     if(!d20.isSelected){
                         warnningTV.visibility = View.VISIBLE
                     }else {
-                        warnningTV.visibility = View.INVISIBLE
+                        warnningTV.visibility = View.GONE
                         val result = rollDice(20)
                         CreatePopupWindow(result)
                     }
