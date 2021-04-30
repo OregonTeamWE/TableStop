@@ -26,12 +26,16 @@ import com.example.tableStop.R
 import com.example.tableStop.TableStopApp
 import com.example.tableStop.dataClass.ProductInfo
 import com.example.tableStop.searchView.ShopMoreFragment
+import com.example.tableStop.utils.NetworkUtils
+import com.example.tableStop.utils.TokenUtils
 import com.example.tableStop.viewModel.ProductViewModel
 import com.mancj.materialsearchbar.MaterialSearchBar
 import kotlinx.android.synthetic.main.fragment_shop.*
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.lang.Exception
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -181,6 +185,18 @@ class HomeFragment : Fragment(), MaterialSearchBar.OnSearchActionListener {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                TableStopApp.tokenJson = NetworkUtils.doHttpPost(TokenUtils.buildTokenURL())
+                TableStopApp.tokenInfo = TokenUtils.parseTokenJSON(TableStopApp.tokenJson)
+            } catch (e: Exception) {
+                e.printStackTrace()
+            } finally {
+                TableStopApp.accessToken = TableStopApp.tokenInfo?.access_token
+            }
+        }
+
         return inflater.inflate(R.layout.fragment_shop, container, false)
     }
 
