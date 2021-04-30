@@ -2,7 +2,10 @@ package com.example.tableStop.homeView
 
 import android.app.Activity
 import android.content.ActivityNotFoundException
+import android.content.Context
 import android.content.Intent
+import android.net.ConnectivityManager
+import android.net.NetworkInfo
 import android.os.Build
 import android.os.Bundle
 import android.speech.RecognizerIntent
@@ -10,25 +13,19 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.FrameLayout
 import android.widget.ImageButton
 import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.replace
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.tableStop.MainActivity
 import com.example.tableStop.R
 import com.example.tableStop.TableStopApp
 import com.example.tableStop.dataClass.ProductInfo
 import com.example.tableStop.searchView.ShopMoreFragment
-import com.example.tableStop.utils.NetworkUtils
-import com.example.tableStop.utils.TokenUtils
 import com.example.tableStop.viewModel.ProductViewModel
 import com.mancj.materialsearchbar.MaterialSearchBar
 import kotlinx.android.synthetic.main.fragment_shop.*
@@ -82,8 +79,6 @@ class HomeFragment : Fragment(), MaterialSearchBar.OnSearchActionListener {
         val btn4 = getView()?.findViewById(R.id.load_more_books) as ImageButton
         val btn5 = getView()?.findViewById(R.id.load_more_merchandise) as ImageButton
         val searchBar = getView()?.findViewById(R.id.search_bar) as MaterialSearchBar
-
-        val refreshBtn = getView()?.findViewById(R.id.refresh_button) as ImageButton
 
         searchBar.setOnSearchActionListener(this)
         if (searchBar.isSearchOpened) {
@@ -141,38 +136,19 @@ class HomeFragment : Fragment(), MaterialSearchBar.OnSearchActionListener {
 
         btn5.setOnClickListener { transferView("Merchandise") }
 
-        refreshBtn.setOnClickListener {
-            val homeFragment = HomeFragment()
-            val mainActivity = MainActivity()
-            mainActivity.getToken()
-            val fragmentManager = requireActivity().supportFragmentManager
-            val fragmentTransaction = fragmentManager.beginTransaction()
-            fragmentTransaction.replace(R.id.fragment_container, homeFragment)
-            fragmentTransaction.addToBackStack(null)
-            fragmentTransaction.commit()
-        }
-
         Log.d("Token info in fragment", TableStopApp.accessToken.toString())
 
         viewLifecycleOwner.lifecycleScope.launch {
             //Check if the network is connected
             Log.d("HomeFragment", TableStopApp.accessToken.toString())
 
-            try {
-                TableStopApp.tokenJson = NetworkUtils.doHttpPost(TokenUtils.buildTokenURL())
-                TableStopApp.tokenInfo = TokenUtils.parseTokenJSON(TableStopApp.tokenJson)
-            } catch (e: Exception) {
-                e.printStackTrace()
-            } finally {
-                TableStopApp.accessToken = TableStopApp.tokenInfo?.access_token
-            }
-
             if (TableStopApp.accessToken != null) {
                 val homeDataFetch = HomeDataFetch()
+                withContext(Dispatchers.IO) { homeDataFetch.fetchData() }
+
                 try {
                     homeDataFetch.checkData()
-                    homeDataFetch.fetchData()
-                } catch (e: Exception) {
+                } catch (e: NullPointerException) {
                     println(e)
                 } finally {
                     homeDataFetch.setData()
@@ -180,7 +156,6 @@ class HomeFragment : Fragment(), MaterialSearchBar.OnSearchActionListener {
             } else {
                 home_data.visibility = View.GONE
                 error_message_home.visibility = View.VISIBLE
-                refresh_button.visibility = View.VISIBLE
             }
 
             dndRecyclerAdapter.setInfo(dndData)

@@ -7,12 +7,7 @@ import com.example.tableStop.gameToolView.GameToolsFragment
 import com.example.tableStop.homeView.HomeFragment
 import com.example.tableStop.profileView.ProfileFragment
 import com.example.tableStop.socialView.SocialFragment
-import com.example.tableStop.utils.NetworkUtils
-import com.example.tableStop.utils.TokenUtils
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
 
@@ -25,17 +20,7 @@ class MainActivity : AppCompatActivity() {
         val socialFragment = SocialFragment()
         val gameToolsFragment = GameToolsFragment()
 
-        CoroutineScope(Dispatchers.IO).launch {
-            try {
-                TableStopApp.tokenJson = NetworkUtils.doHttpPost(TokenUtils.buildTokenURL())
-                TableStopApp.tokenInfo = TokenUtils.parseTokenJSON(TableStopApp.tokenJson)
-            } catch (e: Exception) {
-                e.printStackTrace()
-            } finally {
-                TableStopApp.accessToken = TableStopApp.tokenInfo?.access_token
-                makeCurrentFragment(homeFragment)
-            }
-        }
+        makeCurrentFragment(homeFragment)
 
         bottom_navigation.setOnNavigationItemSelectedListener {
 
@@ -46,19 +31,6 @@ class MainActivity : AppCompatActivity() {
                 R.id.nav_gameTools -> makeCurrentFragment(gameToolsFragment)
             }
             true
-        }
-    }
-
-    fun getToken(){
-        CoroutineScope(Dispatchers.IO).launch {
-            try {
-                TableStopApp.tokenJson = NetworkUtils.doHttpPost(TokenUtils.buildTokenURL())
-                TableStopApp.tokenInfo = TokenUtils.parseTokenJSON(TableStopApp.tokenJson)
-            } catch (e: Exception) {
-                e.printStackTrace()
-            } finally {
-                TableStopApp.accessToken = TableStopApp.tokenInfo?.access_token
-            }
         }
     }
 

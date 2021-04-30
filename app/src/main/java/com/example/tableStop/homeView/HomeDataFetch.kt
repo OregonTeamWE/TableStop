@@ -20,8 +20,8 @@ class HomeDataFetch {
             HomeFragment.bookInfo = NetworkUtils.doHttpGet(miniatureLink, TableStopApp.accessToken)
             HomeFragment.merchandiseInfo =
                     NetworkUtils.doHttpGet(merchandiseLink, TableStopApp.accessToken)
-        } catch (e: Exception) {
-            e.printStackTrace()
+        } catch (e: NullPointerException) {
+            println(e)
         } finally {
             HomeFragment.dndInfo = NetworkUtils.doHttpGet(dndLink, TableStopApp.accessToken)
             HomeFragment.rpgInfo = NetworkUtils.doHttpGet(rpgLink, TableStopApp.accessToken)

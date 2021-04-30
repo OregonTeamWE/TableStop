@@ -38,6 +38,20 @@ class TableStopApp : Application() {
 
         Log.d("App Key", ClientID)
 
+
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                tokenJson = NetworkUtils.doHttpPost(TokenUtils.buildTokenURL())
+                tokenInfo = TokenUtils.parseTokenJSON(tokenJson)
+            } catch (e: Exception) {
+                e.printStackTrace()
+            } finally {
+                accessToken = tokenInfo?.access_token
+            }
+        }
+
+
+
 //        suspend fun getTokenSuspend(): String? {
 //            val token = accessToken
 //            if (!token.isNullOrEmpty()) return token
