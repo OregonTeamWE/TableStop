@@ -12,14 +12,11 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.tableStop.R
 import com.example.tableStop.TableStopApp
 import com.example.tableStop.dataClass.SearchResult
-import com.example.tableStop.homeView.HomeFragment
-import com.example.tableStop.homeView.HomeRecyclerAdapter
-import com.example.tableStop.homeView.SearchRecyclerAdapter
 import com.example.tableStop.utils.NetworkUtils
 import com.example.tableStop.utils.SearchUtils
 import com.mancj.materialsearchbar.MaterialSearchBar
@@ -36,6 +33,8 @@ class ShopMoreFragment : Fragment(), MaterialSearchBar.OnSearchActionListener {
     var searchData = SearchResult()
     var totalContentSize = 0
 
+    var loading = true
+
     companion object {
         var viewPageNum: Int = 1
         lateinit var link: String
@@ -45,14 +44,18 @@ class ShopMoreFragment : Fragment(), MaterialSearchBar.OnSearchActionListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val mLayoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
+
+        val visibleItemCount = mLayoutManager.childCount
+        val pastVisibleItem = mLayoutManager.findFirstCompletelyVisibleItemPosition()
+
         val parameter = arguments?.getString("parameter")
 
-        val searchPB = getView()?.findViewById(R.id.search_loading_indicator) as ProgressBar
-        val searchPage = getView()?.findViewById(R.id.search_page) as EditText
+//        val searchPage = getView()?.findViewById(R.id.search_page) as EditText
 //        val showPage = getView()?.findViewById(R.id.show_page) as TextView
-        val jumpButton = getView()?.findViewById(R.id.jump_btn) as Button
-        val prevButton = getView()?.findViewById(R.id.prev_button) as Button
-        val nextButton = getView()?.findViewById(R.id.next_button) as Button
+//        val jumpButton = getView()?.findViewById(R.id.jump_btn) as Button
+//        val prevButton = getView()?.findViewById(R.id.prev_button) as Button
+//        val nextButton = getView()?.findViewById(R.id.next_button) as Button
 
         val searchBar = getView()?.findViewById(R.id.search_bar) as MaterialSearchBar
 
@@ -64,37 +67,53 @@ class ShopMoreFragment : Fragment(), MaterialSearchBar.OnSearchActionListener {
         link = SearchUtils.buildSearchURL(parameter, 12, (viewPageNum - 1) * 12)
 
         search_recycler_view.apply {
-            search_recycler_view.layoutManager =
-                LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
+            search_recycler_view.layoutManager = mLayoutManager
             searchAdapter = SearchRecyclerAdapter()
             search_recycler_view.adapter = searchAdapter
         }
 
         resetSearch(link)
-        searchPB.visibility = View.GONE
 
-        prevButton.setOnClickListener {
-            if (viewPageNum > 1) {
-                --viewPageNum
-                link = SearchUtils.buildSearchURL(parameter, 12, (viewPageNum - 1) * 12)
-                resetSearch(link)
-                Log.d("Prev Button", viewPageNum.toString())
+//        prevButton.setOnClickListener {
+//            if (viewPageNum > 1) {
+//                --viewPageNum
+//                link = SearchUtils.buildSearchURL(parameter, 12, (viewPageNum - 1) * 12)
+//                resetSearch(link)
+//                Log.d("Prev Button", viewPageNum.toString())
+//            }
+//        }
+//
+//        nextButton.setOnClickListener {
+//            ++viewPageNum
+//            link = SearchUtils.buildSearchURL(parameter, 12, (viewPageNum - 1) * 12)
+//            resetSearch(link)
+//            Log.d("Next Button", viewPageNum.toString())
+//        }
+//
+//        jumpButton.setOnClickListener {
+//            viewPageNum = Integer.valueOf(searchPage.text.toString())
+//            link = SearchUtils.buildSearchURL(parameter, 12, (viewPageNum - 1) * 12)
+//            resetSearch(link)
+//            Log.d("Jump Button", viewPageNum.toString())
+//        }
+
+        search_recycler_view.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                if (dy > 0) {
+                    val total = searchAdapter.itemCount
+
+                    if ((visibleItemCount + pastVisibleItem) >= total) {
+                        ++viewPageNum
+                        link = SearchUtils.buildSearchURL(parameter, 12, (viewPageNum - 1) * 12)
+                        resetSearch(link)
+                    }
+
+
+                }
+
+                super.onScrolled(recyclerView, dx, dy)
             }
-        }
-
-        nextButton.setOnClickListener {
-            ++viewPageNum
-            link = SearchUtils.buildSearchURL(parameter, 12, (viewPageNum - 1) * 12)
-            resetSearch(link)
-            Log.d("Next Button", viewPageNum.toString())
-        }
-
-        jumpButton.setOnClickListener {
-            viewPageNum = Integer.valueOf(searchPage.text.toString())
-            link = SearchUtils.buildSearchURL(parameter, 12, (viewPageNum - 1) * 12)
-            resetSearch(link)
-            Log.d("Jump Button", viewPageNum.toString())
-        }
+        })
     }
 
     override fun onCreateView(
@@ -106,6 +125,7 @@ class ShopMoreFragment : Fragment(), MaterialSearchBar.OnSearchActionListener {
     }
 
     private fun resetSearch(link: String) {
+        search_loading_indicator.visibility = View.VISIBLE
         viewLifecycleOwner.lifecycleScope.launch {
             try {
                 searchResult = withContext(Dispatchers.IO) {
@@ -145,6 +165,8 @@ class ShopMoreFragment : Fragment(), MaterialSearchBar.OnSearchActionListener {
                 Log.d("ShopMoreFrag", totalContentSize.toString())
                 searchAdapter.setInfo(searchData.itemSummaries)
 //                showPage.text = "$viewPageNum/" + (totalContentSize / 12).toString()
+                search_loading_indicator.visibility = View.GONE
+                searchAdapter.notifyDataSetChanged()
             }
         }
     }
@@ -185,7 +207,8 @@ class ShopMoreFragment : Fragment(), MaterialSearchBar.OnSearchActionListener {
         } catch (e: ActivityNotFoundException) {
             // Handling error when the service is not available.
             e.printStackTrace()
-            Toast.makeText(activity, "Your device does not support STT.", Toast.LENGTH_LONG).show()
+            Toast.makeText(activity, "Your device does not support STT.", Toast.LENGTH_LONG)
+                .show()
         }
     }
 

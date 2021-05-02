@@ -1,4 +1,4 @@
-package com.example.tableStop.homeView
+package com.example.tableStop.searchView
 
 import android.view.LayoutInflater
 import android.view.View
@@ -15,10 +15,10 @@ import com.example.tableStop.detailView.DetailFragment
 
 class SearchRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private var info: ArrayList<ProductInfo> = ArrayList()
+    private var info: MutableList<ProductInfo> = ArrayList()
 
     fun setInfo(parseInfo: ArrayList<ProductInfo>) {
-        info = parseInfo
+        info.addAll(parseInfo)
         notifyDataSetChanged()
     }
 
