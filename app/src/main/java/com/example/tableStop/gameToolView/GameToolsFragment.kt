@@ -9,15 +9,15 @@ import android.os.Bundle
 import android.transition.TransitionManager
 import android.util.Log
 import android.view.*
-import android.widget.Button
-import android.widget.LinearLayout
+import android.widget.*
 import android.widget.PopupWindow
-import android.widget.TextView
+import androidx.core.view.forEach
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import com.example.tableStop.R
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_gametools.*
-import kotlinx.android.synthetic.main.fragment_shop.*
+import kotlin.math.log
 
 
 class GameToolsFragment : Fragment(){
@@ -215,14 +215,21 @@ class GameToolsFragment : Fragment(){
 //        Log.d("test_random", "generateNum " + randomInt)
 //    }
 
-    fun PopupWindow.dimBehind() {
+    private fun PopupWindow.dimBehind() {
         val container = contentView.rootView
         val context = contentView.context
-        val wm = context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
-        val p = container.layoutParams as WindowManager.LayoutParams
-        p.flags = p.flags or WindowManager.LayoutParams.FLAG_DIM_BEHIND
-        p.dimAmount = 0.3f
-        wm.updateViewLayout(container, p)
+//        val wm = context.getSystemService(Context.WINDOW_SERVICE) as WindowManager?
+        (context.getSystemService(Context.WINDOW_SERVICE) as WindowManager?)?.let { wm ->
+        val p = container.layoutParams as WindowManager.LayoutParams?
+        if (p != null) {
+            p.flags = WindowManager.LayoutParams.FLAG_DIM_BEHIND
+            p.dimAmount = 0.9f
+            wm.updateViewLayout(container, p)
+        }
+        }
+//        p?.flags = WindowManager.LayoutParams.FLAG_DIM_BEHIND
+//        p?.dimAmount = 0.3f
+//        wm?.updateViewLayout(container, p)
     }
 
     fun CreatePopupWindow(limit: Int){
@@ -236,6 +243,8 @@ class GameToolsFragment : Fragment(){
                 LinearLayout.LayoutParams.WRAP_CONTENT, // Width of popup window
                 LinearLayout.LayoutParams.WRAP_CONTENT // Window height
         )
+        popupWindow.dimBehind()
+        //popupWindow.setBackgroundDrawable(null)
         // Set an elevation for the popup window
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             popupWindow.elevation = 10.0F
@@ -258,7 +267,7 @@ class GameToolsFragment : Fragment(){
 
         // to generate dice animation
         val result = rollDice(limit)
-        val animator = ValueAnimator.ofInt(1,limit, result)
+        val animator = ValueAnimator.ofInt(1, limit, result)
         if(limit == 10){       // change duration for different limit
             animator.duration = 1200
         }
@@ -273,6 +282,11 @@ class GameToolsFragment : Fragment(){
         animator.start()
         //resultTv.text = dice_result.toString()
         setButtonClickable(false)  // when the popup window active, set button unclickable
+        if(bottom_navigation == null){
+            Log.d("test", "bottom_navigation is null")
+        }
+        bottom_navigation?.menu?.forEach { it.isEnabled = false }
+        Log.d("test", "nac_num " + bottom_navigation?.menu?.size())
 
         //popupWindow.dimBehind()
         // set button to control Popupwindow
@@ -288,20 +302,28 @@ class GameToolsFragment : Fragment(){
                 0, // X offset
                 0 // Y offset
         )
+//        val rollButton: Button = btn_roll
+//        popupWindow.showAsDropDown(rollButton,0,10)
     }
 
     fun setButtonClickable(b: Boolean) {
-        d4.isClickable = b
-        d6.isClickable = b
-        d8.isClickable = b
-        d10.isClickable = b
-        d12.isClickable = b
-        d20.isClickable = b
-        btn_roll.isClickable = b
-        btn_shop.isClickable = b
+        if(d4 != null || d6 != null || d8 != null || d10 != null || d12 != null || d20 != null){
+            d4.isClickable = b
+            d6.isClickable = b
+            d8.isClickable = b
+            d10.isClickable = b
+            d12.isClickable = b
+            d20.isClickable = b
+            btn_roll.isClickable = b
+            btn_shop.isClickable = b
+        }
     }
 
 }
+
+//private fun FrameLayout.isClickable(b: Boolean) {
+//
+//}
 
 //private fun Button.setOnClickListener(gameToolsFragment: GameToolsFragment) {
 //
