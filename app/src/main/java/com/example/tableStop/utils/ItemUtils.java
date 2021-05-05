@@ -20,6 +20,9 @@ public class ItemUtils {
         SearchUtils.Price price;
         ItemLocation itemLocation;
         SearchUtils.Image image;
+        SearchUtils.Image[] additionalImages;
+
+        String itemWebUrl;
 
         String condition;
         String brand;
@@ -48,9 +51,22 @@ public class ItemUtils {
         itemInfo.title = result.title;
 
         // itemInfo.image = result.image.imageUrl;
+        int additionalImagesCount = 0;
+        if (result.additionalImages != null) {
+            additionalImagesCount = result.additionalImages.length;
+        }
+        String[] images = new String[1+additionalImagesCount];
+        images[0] = result.image.imageUrl;
+        for (int i = 0; i < additionalImagesCount; i++) {
+            images[1+i] = result.additionalImages[i].imageUrl;
+        }
+        itemInfo.images = images;
+
+        itemInfo.url = result.itemWebUrl;
 
         Log.d("Condition", "is " + result.condition);
         Log.d("Json", "is " + resultJSON);
+        Log.d("URL", "is " + result.itemWebUrl);
 
         String currency = CurrencySign.convertTextToSign(result.price.currency);
         itemInfo.price = currency + "" + result.price.value;

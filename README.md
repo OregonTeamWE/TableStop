@@ -3,7 +3,7 @@
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-MaterialSearchBar-orange.svg?style=flat)](http://android-arsenal.com/details/1/4158)
 [![](https://jitpack.io/v/mancj/MaterialSearchBar.svg)](https://jitpack.io/#mancj/MaterialSearchBar)
 
-Wiki Page: [Click Here](https://github.com/LuSuAllen/Team-eBay-Capstone-Project/wiki) | Download Page: [Click Here](https://github.com/LuSuAllen/Team-eBay-Capstone-Project/releases)
+Download Page: [Click Here](https://github.com/OregonTeamWE/TableStop/releases)
 
 This is a team capstone project by OSU (Oregon State University) students in 2021\
 Developed by: [Android Studio](https://developer.android.com/studio) | [Postman](https://www.postman.com/) | [GitHub Desktop](https://desktop.github.com/)

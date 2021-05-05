@@ -16,12 +16,10 @@
         app:mt_placeholder="@string/search_hint"
         app:mt_speechMode="true" />
 
-
     <ScrollView
         android:id="@+id/search_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/pagination"
         android:layout_below="@+id/search_bar"
         android:layout_margin="5dp">
 
@@ -30,132 +28,116 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/search_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:text="Search"
-                    android:textAlignment="textStart"
-                    android:textColor="@color/black"
-                    android:textSize="20sp"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <ImageButton
-                    android:id="@+id/fold"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@null"
-                    android:src="@drawable/ic_less"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <ProgressBar
-                    android:id="@+id/search_loading_indicator"
+                <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:visibility="visible" />
+                    android:layout_height="match_parent">
 
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/error_message"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_margin="10dp"
-                    android:visibility="gone"
-                    app:cardCornerRadius="10dp"
-                    app:cardElevation="10dp">
-
-
-                    <TextView
+                    <ProgressBar
+                        android:id="@+id/search_loading_indicator"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
-                        android:layout_margin="20dp"
-                        android:text="@string/api_error" />
+                        android:visibility="visible" />
 
-                </androidx.cardview.widget.CardView>
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/error_message"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_margin="10dp"
+                        android:visibility="gone"
+                        app:cardCornerRadius="10dp"
+                        app:cardElevation="10dp">
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/search_recycler_view"
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:layout_margin="20dp"
+                            android:text="@string/api_error" />
+
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/search_recycler_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+
+                </FrameLayout>
+
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/white"
+                    android:gravity="center_horizontal"
+                    android:weightSum="100"
+                    android:baselineAligned="false">
 
-            </FrameLayout>
+                    <Button
+                        android:id="@+id/prev_button"
+                        android:layout_width="80dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginEnd="20dp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_weight="25"
+                        android:background="@drawable/round_corner"
+                        android:text="@string/navigate_prev"
+                        android:textColor="@color/black"
+                        android:textSize="20sp" />
+
+                    <EditText
+                        android:id="@+id/search_page"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="20"
+                        android:visibility="gone" />
+
+                    <Button
+                        android:id="@+id/jump_btn"
+                        android:layout_width="60dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="20"
+                        android:text="@string/jump_page"
+                        android:visibility="gone" />
+
+                    <TextView
+                        android:id="@+id/show_page"
+                        android:layout_width="60dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="10"
+                        android:autoSizeMaxTextSize="80sp"
+                        android:autoSizeMinTextSize="12sp"
+                        android:gravity="center_vertical"
+                        android:text="Page"
+                        android:visibility="gone"
+                        app:autoSizeTextType="uniform" />
+
+                    <Button
+                        android:id="@+id/next_button"
+                        android:layout_width="80dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_weight="25"
+                        android:background="@drawable/round_corner"
+                        android:text="@string/navigate_next"
+                        android:textColor="@color/black"
+                        android:textSize="20sp" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+
 
         </LinearLayout>
 
     </ScrollView>
-
-    <LinearLayout
-        android:id="@+id/pagination"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_alignParentBottom="true"
-        android:background="@android:color/white"
-        android:gravity="center_horizontal"
-        android:weightSum="100">
-
-        <Button
-            android:id="@+id/prev_button"
-            style="?attr/materialButtonOutlinedStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginEnd="20dp"
-            android:layout_weight="25"
-            android:text="@string/navigate_prev"
-            android:textSize="20sp" />
-
-        <EditText
-            android:id="@+id/search_page"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="20"
-            android:visibility="gone" />
-
-        <Button
-            android:id="@+id/jump_btn"
-            android:layout_width="60dp"
-            android:layout_height="match_parent"
-            android:layout_weight="20"
-            android:text="@string/jump_page"
-            android:visibility="gone" />
-
-        <TextView
-            android:id="@+id/show_page"
-            android:layout_width="60dp"
-            android:layout_height="match_parent"
-            android:layout_weight="10"
-            android:autoSizeMaxTextSize="80sp"
-            android:autoSizeMinTextSize="12sp"
-            android:gravity="center_vertical"
-            android:text="Page"
-            android:visibility="gone"
-            app:autoSizeTextType="uniform" />
-
-        <Button
-            style="?attr/materialButtonOutlinedStyle"
-            android:id="@+id/next_button"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginStart="20dp"
-            android:layout_weight="25"
-            android:text="@string/navigate_next"
-            android:textSize="20sp" />
-    </LinearLayout>
 
 </RelativeLayout>
