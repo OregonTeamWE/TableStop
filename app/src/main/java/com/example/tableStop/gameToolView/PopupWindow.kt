@@ -46,7 +46,6 @@ class PopupWindow : AppCompatActivity() {
                 animator.animatedValue as Int
             )
         }
-
         // Fade animation for the Popup Window when you press the back button
         popup_window_view_with_border.animate().alpha(0f).setDuration(500).setInterpolator(
             DecelerateInterpolator()

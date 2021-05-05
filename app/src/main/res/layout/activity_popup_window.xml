@@ -37,8 +37,8 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/popup_window_background_container"
-                android:layout_width="250dp"
-                android:layout_height="384dp"
+                android:layout_width="240dp"
+                android:layout_height="354dp"
                 android:layout_centerInParent="true"
                 android:background="#FFFFFF"
                 android:minHeight="170dp">
@@ -57,12 +57,12 @@
                     android:textColor="#837878"
                     android:textSize="100dp"
                     android:textStyle="bold"
-                    app:layout_constraintBottom_toTopOf="@+id/popup_window_button"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.52" />
+                    app:layout_constraintVertical_bias="0.62" />
 
                 <Button
                     android:id="@+id/popup_window_button"
