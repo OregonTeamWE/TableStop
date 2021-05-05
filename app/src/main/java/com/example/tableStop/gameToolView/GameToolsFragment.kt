@@ -13,9 +13,12 @@ import android.widget.*
 import android.widget.PopupWindow
 import androidx.core.view.forEach
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
+import androidx.fragment.app.FragmentManager
 import androidx.navigation.NavController
 import com.example.tableStop.R
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_popup_window.view.*
 import kotlinx.android.synthetic.main.fragment_gametools.*
 import kotlin.math.log
 
@@ -33,6 +36,7 @@ class GameToolsFragment : Fragment(){
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val fragmentManager = (activity as FragmentActivity).supportFragmentManager     // set supportFragmentManager
 
         var warnningTV = roll_warning
         warnningTV.visibility = View.GONE; // set warning TV
@@ -49,7 +53,8 @@ class GameToolsFragment : Fragment(){
                         warnningTV.visibility = View.VISIBLE
                     }else{
                         warnningTV.visibility = View.GONE
-                        CreatePopupWindow(4)
+                        PopDialog.newInstance(4).show(fragmentManager, PopDialog.TAG)
+//                        CreatePopupWindow(4)
                     }
 // --------------------------------------- use intent to create popup window ---------------------//
 //                val intent = Intent(this.activity, PopupWindow::class.java)
@@ -74,8 +79,8 @@ class GameToolsFragment : Fragment(){
                         warnningTV.visibility = View.VISIBLE
                     }else{
                         warnningTV.visibility = View.GONE
-                        //val result = rollDice(6)
-                        CreatePopupWindow(6)
+                        PopDialog.newInstance(6).show(fragmentManager, PopDialog.TAG)
+                        //CreatePopupWindow(6)
                     }
                 }}
             d8.setOnClickListener{
@@ -90,8 +95,8 @@ class GameToolsFragment : Fragment(){
                         warnningTV.visibility = View.VISIBLE
                     }else {
                         warnningTV.visibility = View.GONE
-                        //val result = rollDice(8)
-                        CreatePopupWindow(8)
+                        PopDialog.newInstance(8).show(fragmentManager, PopDialog.TAG)
+                        //CreatePopupWindow(8)
                     }
                 }}
             d10.setOnClickListener{
@@ -106,8 +111,8 @@ class GameToolsFragment : Fragment(){
                         warnningTV.visibility = View.VISIBLE
                     }else {
                         warnningTV.visibility = View.GONE
-                        //val result = rollDice(10)
-                        CreatePopupWindow(10)
+                        PopDialog.newInstance(10).show(fragmentManager, PopDialog.TAG)
+                        //CreatePopupWindow(10)
                     }
                 } }
             d12.setOnClickListener{
@@ -122,8 +127,8 @@ class GameToolsFragment : Fragment(){
                         warnningTV.visibility = View.VISIBLE
                     }else {
                         warnningTV.visibility = View.GONE
-                        //val result = rollDice(12)
-                        CreatePopupWindow(12)
+                        PopDialog.newInstance(12).show(fragmentManager, PopDialog.TAG)
+                        //CreatePopupWindow(12)
                     }
                 }}
             d20.setOnClickListener{
@@ -139,8 +144,8 @@ class GameToolsFragment : Fragment(){
                         warnningTV.visibility = View.VISIBLE
                     }else {
                         warnningTV.visibility = View.GONE
-                        //val result = rollDice(20)
-                        CreatePopupWindow(20)
+                        PopDialog.newInstance(20).show(fragmentManager, PopDialog.TAG)
+                        //CreatePopupWindow(20)
                     }
                 }}
             rollButton.setOnClickListener{
@@ -305,6 +310,8 @@ class GameToolsFragment : Fragment(){
 //        val rollButton: Button = btn_roll
 //        popupWindow.showAsDropDown(rollButton,0,10)
     }
+
+
 
     fun setButtonClickable(b: Boolean) {
         if(d4 != null || d6 != null || d8 != null || d10 != null || d12 != null || d20 != null){
