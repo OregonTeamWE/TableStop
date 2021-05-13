@@ -55,12 +55,17 @@ General list of equipment or resources that might be needed to facilitate design
 Screenshots
 ===========
 * Home Screen
+
 ![Home](/images/home.png)
 * Search Page
+
 ![Search](/images/search.png)
 * Proudct Page
+
 ![Product](/images/product.png)
 * Profile Page
+
 ![Profile](/images/profile.png)
 * Game Tools Page
+
 ![Gametools](/images/gametools.png)
