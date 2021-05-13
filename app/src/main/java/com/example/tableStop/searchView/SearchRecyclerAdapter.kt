@@ -1,4 +1,4 @@
-package com.example.tableStop.homeView
+package com.example.tableStop.searchView
 
 import android.view.LayoutInflater
 import android.view.View
