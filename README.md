@@ -51,3 +51,21 @@ General list of equipment or resources that might be needed to facilitate design
 - Google official document of Android and Kotlin: https://developer.android.com/kotlin 
 - Google design UI guide: https://developer.android.com/guide/topics/ui 
 - Google Android Studio overview: https://developer.android.com/studio/intro 
+
+Screenshots
+===========
+* Home Screen
+
+![Home](/images/home.png)
+* Search Page
+
+![Search](/images/search.png)
+* Proudct Page
+
+![Product](/images/product.png)
+* Profile Page
+
+![Profile](/images/profile.png)
+* Game Tools Page
+
+![Gametools](/images/gametools.png)
