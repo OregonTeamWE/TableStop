@@ -52,6 +52,29 @@ General list of equipment or resources that might be needed to facilitate design
 - Google design UI guide: https://developer.android.com/guide/topics/ui 
 - Google Android Studio overview: https://developer.android.com/studio/intro 
 
+
+Features
+========
+* Home Page
+  * Text Search
+  * Voice search
+  * Expand the content of that category (Search query using keywords)
+* Social Page
+  * List of socal links about tabletop games (YouTube, Twitter, Twitch, Reddit, etc.)
+* Profile Page
+  * Display a list of saved items 
+* Game Tools Page
+  * Dice roller
+  * Dice shopping link
+
+What to implement next?
+=======================
+* [ ] Infinite scrolling for loading more results
+* [ ] Crash when cut down the internet
+* [ ] Refresh the home page when no data or network is detected
+* [ ] UI loaded before token is ready
+* [ ] More accurate result regarding the category
+
 Screenshots
 ===========
 ![Home](/images/home.png)
