@@ -3,9 +3,14 @@
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-MaterialSearchBar-orange.svg?style=flat)](http://android-arsenal.com/details/1/4158)
 [![](https://jitpack.io/v/mancj/MaterialSearchBar.svg)](https://jitpack.io/#mancj/MaterialSearchBar)
 
-Download Page: [Click Here](https://github.com/OregonTeamWE/TableStop/releases)
+Download the APK installer [here](https://github.com/OregonTeamWE/TableStop/releases) and install on the Android device.
 
-This is a team capstone project by OSU (Oregon State University) students in 2021\
+Some devices require to allow installation from unkonwn source.
+
+---
+
+This is a team capstone project by OSU (Oregon State University) students in 2021
+
 Developed by: [Android Studio](https://developer.android.com/studio) | [Postman](https://www.postman.com/) | [GitHub Desktop](https://desktop.github.com/)
 
 Team Members: | [Wei Huang](https://github.com/huangwei0) | [Zhongkai Huang](https://github.com/Matalife) | [Zijing (Allen) Huang](https://github.com/LuSuAllen) | [Jinning (Billy) Zhang](https://github.com/jinningzhang6) | [Zisong Zhang](https://github.com/zisongzhang) 
