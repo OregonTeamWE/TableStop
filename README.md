@@ -8,8 +8,9 @@ Download the APK installer [here](https://github.com/OregonTeamWE/TableStop/rele
 Some devices require to allow installation from unkonwn source.
 
 ---
-
 This is a team capstone project by OSU (Oregon State University) students in 2021
+
+Compatible Devices: Android Phone with Android 5.0 or higher
 
 Developed by: [Android Studio](https://developer.android.com/studio) | [Postman](https://www.postman.com/) | [GitHub Desktop](https://desktop.github.com/)
 
@@ -17,7 +18,44 @@ Team Members: | [Wei Huang](https://github.com/huangwei0) | [Zhongkai Huang](htt
 
 Credits: [MaterialSearchBar](https://github.com/mancj/MaterialSearchBar)
 
-## TableStop
+Features
+========
+* Home Page
+  * Text Search with Search Bar
+  * Voice search with Search Bar
+  * Expand the content of that category (Search query using keywords)
+* Social Page
+  * List of socal links about tabletop games (YouTube, Twitter, Twitch, Reddit, etc.)
+* Product Page
+  * Gallery of product's images
+  * Brand
+  * Seller
+  * Condition
+  * Price 
+* Profile Page
+  * Display a list of saved items 
+* Game Tools Page
+  * Dice roller
+  * Dice shopping link
+
+What to implement next?
+=======================
+* [ ] Infinite scrolling for loading more results
+* [ ] Crash when cut down the internet
+* [ ] Refresh the home page when no data or network is detected
+* [ ] UI loaded before token is ready
+* [ ] More accurate result regarding the category
+
+Screenshots
+===========
+![Home](/images/home.png)
+![Search](/images/search.png)
+![Product](/images/product.png)
+![Profile](/images/profile.png)
+![Social](/images/social.png)
+![Gametools](/images/gametools.png)
+
+## Project Goals
 
 A list or paragraph outlining the engineering requirements
 - Building an working Android application and deliver to Google Play Store
@@ -56,35 +94,3 @@ General list of equipment or resources that might be needed to facilitate design
 - Google official document of Android and Kotlin: https://developer.android.com/kotlin 
 - Google design UI guide: https://developer.android.com/guide/topics/ui 
 - Google Android Studio overview: https://developer.android.com/studio/intro 
-
-
-Features
-========
-* Home Page
-  * Text Search
-  * Voice search
-  * Expand the content of that category (Search query using keywords)
-* Social Page
-  * List of socal links about tabletop games (YouTube, Twitter, Twitch, Reddit, etc.)
-* Profile Page
-  * Display a list of saved items 
-* Game Tools Page
-  * Dice roller
-  * Dice shopping link
-
-What to implement next?
-=======================
-* [ ] Infinite scrolling for loading more results
-* [ ] Crash when cut down the internet
-* [ ] Refresh the home page when no data or network is detected
-* [ ] UI loaded before token is ready
-* [ ] More accurate result regarding the category
-
-Screenshots
-===========
-![Home](/images/home.png)
-![Search](/images/search.png)
-![Product](/images/product.png)
-![Profile](/images/profile.png)
-![Social](/images/social.png)
-![Gametools](/images/gametools.png)
