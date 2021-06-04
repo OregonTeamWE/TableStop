@@ -38,12 +38,12 @@ Features
   * Dice roller
   * Dice shopping link
 
-What to implement next?
+What to implement/fix next?
 =======================
 * [ ] Infinite scrolling for loading more results
 * [ ] Crash when cut down the internet
-* [ ] Refresh the home page when no data or network is detected
-* [ ] UI loaded before token is ready
+* [ ] Refresh button for the home page when no data or network is detected
+* [ ] Load/set token before UI is launched
 * [ ] More accurate result regarding the category
 
 Screenshots
