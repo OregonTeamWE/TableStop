@@ -20,21 +20,21 @@ Credits: [MaterialSearchBar](https://github.com/mancj/MaterialSearchBar)
 
 Features
 ========
-* Home Page -------- shows the items. There are a few categorize on the Homepage that the user can choose. The user can swipe under each category or expand the categorize to get more items. On the other hand, users can search the item on their own, or they can use voice to search the item. 
+* Home Page -------- Shows the items. There are a few categorize on the Homepage that the user can choose. The user can swipe under each category or expand the categorize to get more items. On the other hand, users can search the item on their own, or they can use voice to search the item. 
   * Text Search with Search Bar
   * Voice search with Search Bar
   * Expand the content of that category (Search query using keywords)
-* Social Page -------- collects the URLs of websites that relate the tabletop games
+* Social Page -------- Collects the URLs of websites that relate the tabletop games
   * List of socal links about tabletop games (YouTube, Twitter, Twitch, Reddit, etc.)
-* Product Page
+* Product Page -------  Shows the detail of the item include price, title, save button, buy button.
   * Gallery of product's images
   * Brand
   * Seller
   * Condition
   * Price 
-* Profile Page
+* Profile Page ------- Save the items into the favorite.
   * Display a list of saved items 
-* Game Tools Page
+* Game Tools Page  ---- It is increased entertainment. The user can play six differnt kinds of dice.
   * Dice roller
   * Dice shopping link
 
